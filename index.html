@@ -41,12 +41,11 @@
         
         var processResults = function(data) {
           var finalResults = {};
-          finalResults['Video Play'] = {};
-          finalResults['Video Play']['daily'] = {};
-            finalResults['Video Play']['several'] = {};
-            finalResults['Video Play']['weekly'] = {};
-            finalResults['Video Play']['couple'] = {};
-            finalResults['Video Play']['once'] = {};
+          finalResults['daily'] = {};
+          finalResults['several'] = {};
+          finalResults['weekly'] = {};
+          finalResults['couple'] = {};
+          finalResults['once'] = {};
           var dates = Object.keys(data);
           for(i=0; i<dates.length; i++){
             //do this same thing for each month
