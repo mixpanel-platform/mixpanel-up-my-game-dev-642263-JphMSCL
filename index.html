@@ -41,10 +41,8 @@
         
         var processResults = function(data) {
           var finalResults = {};
-          finalResults['Video Play'] = {};
           var dates = Object.keys(data);
           for(i=0; i<dates.length; i++){
-            finalResults['Video Play'][dates[i]] = {};
             //do this same thing for each month
             //define daily as 4+ times weekly
             var daily = data[dates[i]][17] / data[dates[i]][0] * 100;
@@ -56,11 +54,11 @@
             var couple = (data[dates[i]][1] - data[dates[i]][4]) / data[dates[i]][0] * 100;
             //define once as only once
             var once = (data[dates[i]][0] - data[dates[i]][1]) / data[dates[i]][0] * 100;
-            finalResults['Video Play'][dates[i]]['daily'] = daily;
-            finalResults['Video Play'][dates[i]]['several'] = several;
-            finalResults['Video Play'][dates[i]]['weekly'] = weekly;
-            finalResults['Video Play'][dates[i]]['couple'] = couple;
-            finalResults['Video Play'][dates[i]]['once'] = once;
+            finalResults['daily'][dates[i]] = daily;
+            finalResults['several'][dates[i]]['several'] = several;
+            finalResults['weekly'][dates[i]] = weekly;
+            finalResults['couple'][dates[i]] = couple;
+            finalResults['once'][dates[i]] = once;
           }
           console.log(finalResults);
           eventGraph.MPChart('setData', finalResults);
