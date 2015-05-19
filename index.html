@@ -32,13 +32,10 @@
           
           params['from'] = dateRange.from.toISOString().substring(0, 10);
           params['to'] = dateRange.to.toISOString().substring(0, 10);
-          
-          if(dateSelect){
-            MP.api.query('https://mixpanel.com/api/2.0/retention/addiction', 'Video Play').done(function(results){
-              console.log(results);
-              console.log(results.values());
-            });
-          }
+
+          MP.api.query('https://mixpanel.com/api/2.0/retention/addiction', 'Video Play').done(function(results){
+            console.log(results);
+          });
         };
         
         dateSelect.on('change', runQuery);
