@@ -34,13 +34,12 @@
           params['to'] = dateRange.to.toISOString().substring(0, 10);
 
           MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
-            console.log(results);
             console.log(results.data);
             processResults(results.data);
           });
         }
         
-        var procesResults = function(data) {
+        var processResults = function(data) {
           var finalResults = {};
           finalResults['Video Play'] = {};
           var dates = Object.keys(data);
