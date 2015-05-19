@@ -42,11 +42,6 @@
         var processResults = function(data) {
           var finalResults = {};
           finalResults['Video Play'] = {};
-          finalResults['Video Play']['daily'] = {};
-          finalResults['Video Play']['several'] = {};
-          finalResults['Video Play']['weekly'] = {};
-          finalResults['Video Play']['couple'] = {};
-          finalResults['Video Play']['once'] = {};
           var dates = Object.keys(data);
           for(i=0; i<dates.length; i++){
             finalResults['Video Play'][dates[i]] = {};
@@ -61,11 +56,11 @@
             var couple = (data[dates[i]][1] - data[dates[i]][4]) / data[dates[i]][0] * 100;
             //define once as only once
             var once = (data[dates[i]][0] - data[dates[i]][1]) / data[dates[i]][0] * 100;
-            finalResults['Video Play']['daily'][dates[i]] = daily;
-            finalResults['Video Play']['several'][dates[i]] = several;
-            finalResults['Video Play']['weekly'][dates[i]] = weekly;
-            finalResults['Video Play']['couple'][dates[i]] = couple;
-            finalResults['Video Play']['once'][dates[i]] = once;
+            finalResults['Video Play']['daily'] = daily;
+            finalResults['Video Play']['several'] = several;
+            finalResults['Video Play']['weekly'] = weekly;
+            finalResults['Video Play']['couple'] = couple;
+            finalResults['Video Play']['once'] = once;
           }
           console.log(finalResults);
           eventGraph.MPChart('setData', finalResults);
