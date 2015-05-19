@@ -28,9 +28,7 @@
         }
 
         var runQuery = function() {
-          //var eventName = eventSelect.MPEventSelect('value'),
-          var dateRange = dateSelect.MPDatepicker('value'),
-              interval = intervalPicker.MPSelect('value');
+          var dateRange = dateSelect.MPDatepicker('value');
           
           params['from'] = dateRange.from.toISOString().substring(0, 10);
           params['to'] = dateRange.to.toISOString().substring(0, 10);
