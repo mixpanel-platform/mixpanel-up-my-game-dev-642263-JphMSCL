@@ -44,7 +44,6 @@
           finalResults['Video Play'] = {};
           var dates = Object.keys(data);
           for(i=0; i<dates.length; i++){
-            finalResults['Video Play'][dates[i]] = {};
             //do this same thing for each month
             //define daily as 4+ times weekly
             var daily = data[dates[i]][17] / data[dates[i]][0] * 100;
