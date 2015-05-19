@@ -59,11 +59,11 @@
             var couple = (data[dates[i]][1] - data[dates[i]][4]) / data[dates[i]][0] * 100;
             //define once as only once
             var once = (data[dates[i]][0] - data[dates[i]][1]) / data[dates[i]][0] * 100;
-            finalResults['daily'][dates[i]] = daily;
-            finalResults['several'][dates[i]] = several;
-            finalResults['weekly'][dates[i]] = weekly;
-            finalResults['couple'][dates[i]] = couple;
-            finalResults['once'][dates[i]] = once;
+            finalResults['daily']['Video Play'] = daily;
+            finalResults['several']['Video Play'] = several;
+            finalResults['weekly']['Video Play'] = weekly;
+            finalResults['couple']['Video Play'] = couple;
+            finalResults['once']['Video Play'] = once;
           }
           console.log(finalResults);
           eventGraph.MPChart('setData', finalResults);
