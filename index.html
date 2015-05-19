@@ -33,7 +33,7 @@
           params['from'] = dateRange.from.toISOString().substring(0, 10);
           params['to'] = dateRange.to.toISOString().substring(0, 10);
 
-          MP.api.query('https://mixpanel.com/api/2.0/retention/addiction', params).done(function(results){
+          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results);
           });
         };
