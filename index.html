@@ -36,7 +36,9 @@
           MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results);
           });
-        };
+        }
+        
+        runQuery();
         
         dateSelect.on('change', runQuery);
       });
