@@ -46,6 +46,7 @@
           finalResults['weekly'] = {};
           finalResults['couple'] = {};
           finalResults['once'] = {};
+          finalResults['none'] = {};
           var daily = 0;
           var several = 0;
           var weekly = 0;
@@ -65,16 +66,35 @@
             couple += (data[dates[i]][1] - data[dates[i]][4]);
             //define once as only once
             once += (data[dates[i]][0] - data[dates[i]][1]);
-            //keep running total of total
-            sums +=  data[dates[i]][0]
           }
-          finalResults['daily']['Video Play'] = daily / sums * 100;
-          finalResults['several']['Video Play'] = several / sums * 100;
-          finalResults['weekly']['Video Play'] = weekly / sums * 100;
-          finalResults['couple']['Video Play'] = couple / sums * 100;
-          finalResults['once']['Video Play'] = once  / sums * 100;
-          console.log(finalResults);
-          eventGraph.MPChart('setData', finalResults);
+          finalResults['daily']['Video Play'] = daily;
+          finalResults['several']['Video Play'] = several;
+          finalResults['weekly']['Video Play'] = weekly;
+          finalResults['couple']['Video Play'] = couple;
+          finalResults['once']['Video Play'] = once;
+          finalResults['none']['Video Play'] = 0;
+          finalizeResults(finalResults);
+          
+        }
+        
+        var finalizeResults = function(data) {
+          params['event'].delete;
+          var sums = 0;
+          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
+            console.log(results.data);
+            var newdata = results.data;
+            var dates = Object.keys(newdata);
+            for(i=0; i<dates.length; i++){
+              sums += newdata[dates[i]][0];
+            }
+            finalResults['daily']['Video Play'] = finalResults['daily']['Video Play'] / sums * 100;
+            finalResults['several']['Video Play'] = finalResults['several']['Video Play'] / sums * 100;
+            finalResults['weekly']['Video Play'] = finalResults['weekly']['Video Play'] / sums * 100;
+            finalResults['couple']['Video Play'] = finalResults['couple']['Video Play'] / sums * 100;
+            finalResults['once']['Video Play'] = finalResults['once']['Video Play'] / sums * 100;
+            finalResults['none']['Video Play'] = 100 - (finalResults['daily']['Video Play'] + finalResults['several']['Video Play'] + finalResults['weekly']['Video Play'] + finalResults['couple']['Video Play'] + finalResults['once']['Video Play']);
+            eventGraph.MPChart('setData', finalResults);
+          });
         }
         
         runQuery();
