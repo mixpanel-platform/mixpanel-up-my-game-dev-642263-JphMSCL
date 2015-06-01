@@ -92,7 +92,7 @@
           // if you wanted to use Pulse instead for totals
           MP.api.segment('Pulse', params_all).done(function(results){
             console.log(results.values());
-            var newdata = results.values();
+            var newdata = results.values()['Pulse'];
             finalizeResults(finalResults, newdata);
           });
         }
