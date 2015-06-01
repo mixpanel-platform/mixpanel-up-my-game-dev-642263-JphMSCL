@@ -51,6 +51,8 @@
           params['to'] = dateRange.to.toISOString().substring(0, 10);
           params_all['from'] = dateRange.from.toISOString().substring(0, 10);
           params_all['to'] = dateRange.to.toISOString().substring(0, 10);
+          params_seg['from'] = dateRange.from.toISOString().substring(0, 10);
+          params_seg['to'] = dateRange.to.toISOString().substring(0, 10);
 
           MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
