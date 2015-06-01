@@ -26,16 +26,25 @@
           addiction_unit: 'day',
           segment_method: 'first'
         }
+        
+        var params_all = {
+          from: moment().subtract(1, 'months'),
+          to: moment(),
+          unit: 'month',
+          addiction_unit: 'day',
+          segment_method: 'first'
+        }
 
         var runQuery = function() {
           var dateRange = dateSelect.MPDatepicker('value');
           
           params['from'] = dateRange.from.toISOString().substring(0, 10);
           params['to'] = dateRange.to.toISOString().substring(0, 10);
+          params_all['from'] = dateRange.from.toISOString().substring(0, 10);
+          params_all['to'] = dateRange.to.toISOString().substring(0, 10);
 
           MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
-            params['event'].delete;
             processResults(results.data);
           });
         }
@@ -74,7 +83,7 @@
           finalResults['couple']['Video Play'] = couple;
           finalResults['once']['Video Play'] = once;
           finalResults['none']['Video Play'] = 0;
-          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
+          MP.api.query('/api/2.0/retention/addiction/', params_all).done(function(results){
             console.log(results.data);
             var newdata = results.data;
             finalizeResults(finalResults, newdata);
