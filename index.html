@@ -105,6 +105,9 @@
             sums += newdata[dates[i]][0];
           }*/
           //totals summed for Pulse instead
+          for(i=0; i<dates.length; i++){
+            sums += newdata[dates[i]];
+          }
           console.log(newdata);
           console.log(dates);
           finalResults['daily']['Video Play'] = finalResults['daily']['Video Play'] / sums * 100;
