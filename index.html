@@ -83,7 +83,14 @@
           finalResults['couple']['Video Play'] = couple;
           finalResults['once']['Video Play'] = once;
           finalResults['none']['Video Play'] = 0;
-          MP.api.query('/api/2.0/retention/addiction/', params_all).done(function(results){
+          //get totals using addiction
+          /*MP.api.query('/api/2.0/retention/addiction/', params_all).done(function(results){
+            console.log(results.data);
+            var newdata = results.data;
+            finalizeResults(finalResults, newdata);
+          });*/
+          // if you wanted to use Pulse instead for totals
+          MP.api.segmentation('Pulse', params_all).done(function(results){
             console.log(results.data);
             var newdata = results.data;
             finalizeResults(finalResults, newdata);
@@ -93,9 +100,13 @@
         var finalizeResults = function(finalResults, newdata) {
           var sums = 0;
           var dates = Object.keys(newdata);
-          for(i=0; i<dates.length; i++){
+          //this sums the totals for addiction
+          /*for(i=0; i<dates.length; i++){
             sums += newdata[dates[i]][0];
-          }
+          }*/
+          //totals summed for Pulse instead
+          console.log(newdata);
+          console.log(dates);
           finalResults['daily']['Video Play'] = finalResults['daily']['Video Play'] / sums * 100;
           finalResults['several']['Video Play'] = finalResults['several']['Video Play'] / sums * 100;
           finalResults['weekly']['Video Play'] = finalResults['weekly']['Video Play'] / sums * 100;
