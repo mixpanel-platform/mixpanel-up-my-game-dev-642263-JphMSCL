@@ -35,6 +35,7 @@
 
           MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
+            params['event'].delete;
             processResults(results.data);
           });
         }
@@ -73,7 +74,6 @@
           finalResults['couple']['Video Play'] = couple;
           finalResults['once']['Video Play'] = once;
           finalResults['none']['Video Play'] = 0;
-          params['event'].delete;
           MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
             var newdata = results.data;
