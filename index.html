@@ -90,9 +90,9 @@
             finalizeResults(finalResults, newdata);
           });*/
           // if you wanted to use Pulse instead for totals
-          MP.api.segmentation('Pulse', params_all).done(function(results){
-            console.log(results.data);
-            var newdata = results.data;
+          MP.api.segment('Pulse', params_all).done(function(results){
+            console.log(results.values());
+            var newdata = results.values();
             finalizeResults(finalResults, newdata);
           });
         }
