@@ -67,7 +67,9 @@
           params_seg['to'] = dateRange.to.toISOString().substring(0, 10);
           
           promiselist.push(processResults('Video Play'));
+          params['event'] = 'Post Comment';
           promiselist.push(processResults('Post Comment'));
+          params['event'] = 'Share Video';
           promiselist.push(processResults('Share Video'));
           
           Promise.all(promiselist).then(function(promiseArray){
