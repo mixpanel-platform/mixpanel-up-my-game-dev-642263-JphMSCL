@@ -51,6 +51,8 @@
         finalResults['couple'] = {};
         finalResults['once'] = {};
         finalResults['none'] = {};
+        
+        var eventsList = ['Video Play', 'Post Comment', 'Share Video'];
 
         var runQuery = function() {
           var promiselist = [];
@@ -64,20 +66,20 @@
           params_seg['from'] = dateRange.from.toISOString().substring(0, 10);
           params_seg['to'] = dateRange.to.toISOString().substring(0, 10);
           
-          promiselist.push(MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
+          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
-            processResults(results.data, params['event']);
-          }));
+            promiselist.push(processResults(results.data, params['event']));
+          });
           params['event'] = 'Post Comment';
-          promiselist.push(MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
+          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
-            processResults(results.data, params['event']);
-          }));
+            promiselist.push(processResults(results.data, params['event']));
+          });
           params['event'] = 'Share Video';
-          promiselist.push(MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
+          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
             console.log(results.data);
-            processResults(results.data, params['event']);
-          }));
+            promiselist.push(processResults(results.data, params['event']));
+          })
           
           Promise.all(promiselist).then(function(promiseArray){
             graphData();
