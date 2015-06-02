@@ -106,7 +106,6 @@
             finalResults['none'][eventName] = 0;
             //get totals using addiction
             MP.api.query('/api/2.0/retention/addiction/', params_all).done(function(results){
-              console.log(results.data);
               var newdata = results.data;
               return finalizeResults(newdata, eventName);
             });
@@ -140,6 +139,7 @@
         }
         
         var graphData = function() {
+          console.log('graphed');
           eventGraph.MPChart('setData', finalResults);
         }
         
