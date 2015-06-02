@@ -66,65 +66,57 @@
           params_seg['from'] = dateRange.from.toISOString().substring(0, 10);
           params_seg['to'] = dateRange.to.toISOString().substring(0, 10);
           
-          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
-            console.log(results.data);
-            promiselist.push(processResults(results.data, params['event']));
-          });
-          params['event'] = 'Post Comment';
-          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
-            console.log(results.data);
-            promiselist.push(processResults(results.data, params['event']));
-          });
-          params['event'] = 'Share Video';
-          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
-            console.log(results.data);
-            promiselist.push(processResults(results.data, params['event']));
-          })
+          promiselist.push(processResults('Video Play'));
+          promiselist.push(processResults('Post Comment'));
+          promiselist.push(processResults('Share Video'));
           
           Promise.all(promiselist).then(function(promiseArray){
             graphData();
           });
         }
         
-        var processResults = function(data, eventName) {
-          var daily = 0;
-          var several = 0;
-          var weekly = 0;
-          var couple = 0;
-          var once = 0;
-          var sums = 0;
-          var dates = Object.keys(data);
-          for(i=0; i<dates.length; i++){
-            //do this same thing for each month
-            //define daily as 4+ times weekly
-            daily += data[dates[i]][17];
-            //define several per week as 1+ - 4 times a week
-            several += (data[dates[i]][16] - data[dates[i]][17]);
-            //define weekly as once per week
-            weekly += (data[dates[i]][4] - data[dates[i]][16]);
-            //define couple a month as 2-3
-            couple += (data[dates[i]][1] - data[dates[i]][4]);
-            //define once as only once
-            once += (data[dates[i]][0] - data[dates[i]][1]);
-          }
-          finalResults['daily'][eventName] = daily;
-          finalResults['several'][eventName] = several;
-          finalResults['weekly'][eventName] = weekly;
-          finalResults['couple'][eventName] = couple;
-          finalResults['once'][eventName] = once;
-          finalResults['none'][eventName] = 0;
-          //get totals using addiction
-          MP.api.query('/api/2.0/retention/addiction/', params_all).done(function(results){
-            console.log(results.data);
-            var newdata = results.data;
-            finalizeResults(newdata, eventName);
+        var processResults = function(eventName) {
+          MP.api.query('/api/2.0/retention/addiction/', params).done(function(results){
+            var data = results.data;
+            var daily = 0;
+            var several = 0;
+            var weekly = 0;
+            var couple = 0;
+            var once = 0;
+            var sums = 0;
+            var dates = Object.keys(data);
+            for(i=0; i<dates.length; i++){
+              //do this same thing for each month
+              //define daily as 4+ times weekly
+              daily += data[dates[i]][17];
+              //define several per week as 1+ - 4 times a week
+              several += (data[dates[i]][16] - data[dates[i]][17]);
+              //define weekly as once per week
+              weekly += (data[dates[i]][4] - data[dates[i]][16]);
+              //define couple a month as 2-3
+              couple += (data[dates[i]][1] - data[dates[i]][4]);
+              //define once as only once
+              once += (data[dates[i]][0] - data[dates[i]][1]);
+            }
+            finalResults['daily'][eventName] = daily;
+            finalResults['several'][eventName] = several;
+            finalResults['weekly'][eventName] = weekly;
+            finalResults['couple'][eventName] = couple;
+            finalResults['once'][eventName] = once;
+            finalResults['none'][eventName] = 0;
+            //get totals using addiction
+            MP.api.query('/api/2.0/retention/addiction/', params_all).done(function(results){
+              console.log(results.data);
+              var newdata = results.data;
+              return finalizeResults(newdata, eventName);
+            });
+            // if you wanted to use Pulse instead for totals
+            /*MP.api.segment('Pulse', params_seg).done(function(results){
+              console.log(results.values());
+              var newdata = results.values()['Pulse'];
+              finalizeResults(finalResults, newdata);
+            });*/
           });
-          // if you wanted to use Pulse instead for totals
-          /*MP.api.segment('Pulse', params_seg).done(function(results){
-            console.log(results.values());
-            var newdata = results.values()['Pulse'];
-            finalizeResults(finalResults, newdata);
-          });*/
         }
         
         var finalizeResults = function(newdata, eventName) {
@@ -144,6 +136,7 @@
           finalResults['couple'][eventName] = finalResults['couple'][eventName] / sums;
           finalResults['once'][eventName] = finalResults['once'][eventName] / sums;
           finalResults['none'][eventName] = sums - (finalResults['daily'][eventName] + finalResults['several'][eventName] + finalResults['weekly'][eventName] + finalResults['couple'][eventName] + finalResults['once'][eventName]);
+          return true;
         }
         
         var graphData = function() {
