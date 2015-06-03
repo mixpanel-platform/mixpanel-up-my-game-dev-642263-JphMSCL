@@ -136,14 +136,14 @@
           finalResults['weekly'][eventName] = finalResults['weekly'][eventName] / sums;
           finalResults['couple'][eventName] = finalResults['couple'][eventName] / sums;
           finalResults['once'][eventName] = finalResults['once'][eventName] / sums;
-          finalResults['none'][eventName] = 1 - (finalResults['daily'][eventName] + finalResults['several'][eventName] + finalResults['weekly'][eventName] + finalResults['couple'][eventName] + finalResults['once'][eventName]));
+          finalResults['none'][eventName] = 1 - (finalResults['daily'][eventName] + finalResults['several'][eventName] + finalResults['weekly'][eventName] + finalResults['couple'][eventName] + finalResults['once'][eventName]);
           return true;
         }
         
         var graphData = function() {
           console.log('graphed');
           console.log(finalResults);
-          eventGraph.MPChart('setData', finalResults);
+          setTimeout(function(){ eventGraph.MPChart('setData', finalResults); }, 3000);
         }
         
         runQuery();
