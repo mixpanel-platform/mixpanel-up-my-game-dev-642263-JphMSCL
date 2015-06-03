@@ -136,7 +136,7 @@
           finalResults['weekly'][eventName] = finalResults['weekly'][eventName] / sums;
           finalResults['couple'][eventName] = finalResults['couple'][eventName] / sums;
           finalResults['once'][eventName] = finalResults['once'][eventName] / sums;
-          finalResults['none'][eventName] = sums - (finalResults['daily'][eventName] + finalResults['several'][eventName] + finalResults['weekly'][eventName] + finalResults['couple'][eventName] + finalResults['once'][eventName]);
+          finalResults['none'][eventName] = (sums - (finalResults['daily'][eventName] + finalResults['several'][eventName] + finalResults['weekly'][eventName] + finalResults['couple'][eventName] + finalResults['once'][eventName])) / sums;
           return true;
         }
         
