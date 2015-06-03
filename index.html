@@ -80,6 +80,9 @@
           params_seg['to'] = dateRange.to.toISOString().substring(0, 10);
           
           //process for each desired event
+          /*ex for new event 'Event'
+          params['event'] = 'Event';
+          promiselist.push(processResults('Event'));*/
           promiselist.push(processResults('Video Play'));
           params['event'] = 'Post Comment';
           promiselist.push(processResults('Post Comment'));
