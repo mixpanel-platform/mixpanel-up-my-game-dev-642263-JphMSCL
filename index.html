@@ -16,7 +16,14 @@
     <script>
       MP.api.ready(function() {
         var dateSelect  = $('#dateSelect').MPDatepicker();
-        var eventGraph  = $('#graph').MPChart({chartType: 'bar', stacked: true, normalized: true});
+        var eventGraph  = $('#graph').MPChart({chartType: 'bar', stacked: true, normalized: true,
+          highchartsOptions: {
+            legend: {
+              floating: true,
+              align: "right"
+            }
+          }
+        });
         
         var params = {
           from: moment().subtract(1, 'months'),
