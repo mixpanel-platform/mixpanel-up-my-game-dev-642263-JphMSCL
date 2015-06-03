@@ -13,6 +13,7 @@
     </div>
     <div id="conversion" style="float: left; display: none;">Conversion:  </div>
     <div id="percent" style="float: left; display: none;"></div>
+    <div id="table"></div>
     <script>
       MP.api.ready(function() {
         var dateSelect  = $('#dateSelect').MPDatepicker();
@@ -23,6 +24,10 @@
               align: "right"
             }
           }
+        });
+        var eventTable  = $('#table').MPTable({
+          showPercentages: true,
+          firstColHeader: 'Property'
         });
         
         var params = {
@@ -150,7 +155,10 @@
         var graphData = function() {
           console.log('graphed');
           console.log(finalResults);
-          setTimeout(function(){ eventGraph.MPChart('setData', finalResults); }, 3000);
+          setTimeout(function(){
+            eventGraph.MPChart('setData', finalResults);
+            eventTable.MPTable('setData', finalResults);
+          }, 3000);
         }
         
         runQuery();
