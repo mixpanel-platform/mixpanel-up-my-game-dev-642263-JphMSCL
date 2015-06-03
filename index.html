@@ -56,13 +56,14 @@
           type: 'unique'
         }
         
+        //create the results and assign an ordering
         var finalResults = {};
-        finalResults['daily'] = {};
-        finalResults['several'] = {};
-        finalResults['weekly'] = {};
-        finalResults['couple'] = {};
-        finalResults['once'] = {};
         finalResults['none'] = {};
+        finalResults['once'] = {};
+        finalResults['couple'] = {};
+        finalResults['weekly'] = {};
+        finalResults['several'] = {};
+        finalResults['daily'] = {};
         
         var eventsList = ['Video Play', 'Post Comment', 'Share Video'];
 
@@ -78,6 +79,7 @@
           params_seg['from'] = dateRange.from.toISOString().substring(0, 10);
           params_seg['to'] = dateRange.to.toISOString().substring(0, 10);
           
+          //process for each desired event
           promiselist.push(processResults('Video Play'));
           params['event'] = 'Post Comment';
           promiselist.push(processResults('Post Comment'));
@@ -143,12 +145,12 @@
           /*for(i=0; i<dates.length; i++){
             sums += newdata[dates[i]];
           }*/
-          finalResults['daily'][eventName] = finalResults['daily'][eventName];
-          finalResults['several'][eventName] = finalResults['several'][eventName];
-          finalResults['weekly'][eventName] = finalResults['weekly'][eventName];
-          finalResults['couple'][eventName] = finalResults['couple'][eventName];
-          finalResults['once'][eventName] = finalResults['once'][eventName];
           finalResults['none'][eventName] = sums - (finalResults['daily'][eventName] + finalResults['several'][eventName] + finalResults['weekly'][eventName] + finalResults['couple'][eventName] + finalResults['once'][eventName]);
+          finalResults['once'][eventName] = finalResults['once'][eventName];
+          finalResults['couple'][eventName] = finalResults['couple'][eventName];
+          finalResults['weekly'][eventName] = finalResults['weekly'][eventName];
+          finalResults['several'][eventName] = finalResults['several'][eventName];
+          finalResults['daily'][eventName] = finalResults['daily'][eventName];
           return true;
         }
         
